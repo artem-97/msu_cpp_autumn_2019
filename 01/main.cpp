@@ -1,14 +1,14 @@
 #include <iostream>
 
-#include "token.h"
-#include "lexer.h"
 #include "ast.h"
-#include "parser.h"
 #include "interpreter.h"
+#include "lexer.h"
+#include "parser.h"
+#include "token.h"
 
 void calc() {
   std::cout << "calc> ";
-  while(true) {
+  while (true) {
     Lexer lexer;
     Parser parser(lexer);
     Interpreter interpreter(parser);

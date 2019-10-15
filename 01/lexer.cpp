@@ -1,26 +1,22 @@
 #include "lexer.h"
 
-Lexer::Lexer() {
-    std::getline(std::cin, text);
-}
-		
-void Lexer::err() const {
-	std::cout << "Invalid char\n";
-}
+Lexer::Lexer() { std::getline(std::cin, text); }
+
+void Lexer::err() const { std::cout << "Invalid char\n"; }
 
 Token Lexer::get_next_token() {
-  if (text[pos] == '\n' || text[pos] == 'q') return Token(Type::END);
-  
+  if (text[pos] == '\n' || text[pos] == 'q')
+    return Token(Type::END);
+
   while (pos < text.length() && std::isspace(text[pos])) {
     pos++;
   }
 
   if (pos >= text.length()) {
     return Token(Type::END);
-	}
+  }
 
-
-	char curr = text[pos]; 
+  char curr = text[pos];
   if (curr == '+') {
     ++pos;
     return Token(Type::PLUS);
@@ -49,18 +45,18 @@ Token Lexer::get_next_token() {
     char buff[MAX_N];
     int i = 0;
 
-  while (pos < text.length() && std::isdigit(text[pos])){
-    buff[i] = text[pos];
-    ++i;
-     ++pos;
+    while (pos < text.length() && std::isdigit(text[pos])) {
+      buff[i] = text[pos];
+      ++i;
+      ++pos;
     }
 
-  return Token(Type::INTEGER, std::stoi(std::string(buff, MAX_N)));
-	}
+    return Token(Type::INTEGER, std::stoi(std::string(buff, MAX_N)));
+  }
 
   err();
   return Token(Type::ERR);
-	}
+}
 
 int Lexer::expr() {
   Token curr = this->get_next_token();
@@ -69,5 +65,4 @@ int Lexer::expr() {
     curr = this->get_next_token();
   }
   return res;
-  }
-
+}

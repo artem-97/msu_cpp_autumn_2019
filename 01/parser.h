@@ -6,20 +6,20 @@
 #include "lexer.h"
 #include "token.h"
 class Parser {
- public:
+public:
   Parser(Lexer);
   ~Parser();
-  Parser& operator=(const Parser& other) = delete;
+  Parser &operator=(const Parser &other) = delete;
 
   void err();
-  void eat(const Type&);
-  AST_node* factor();
-  AST_node* term();
-  AST_node* expr();
-  AST_node* parse();
+  void eat(const Type &);
+  AST_node *factor();
+  AST_node *term();
+  AST_node *expr();
+  AST_node *parse();
 
- private:
+private:
   Lexer lexer;
   Token current_token;
-  void mem_free(AST_node*);
+  void mem_free(AST_node *);
 };
