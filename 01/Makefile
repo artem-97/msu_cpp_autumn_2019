@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=c++17 -O2
+CFLAGS=-std=c++17 -Wall -O2
 all: calc
 
 calc: main.o lexer.o parser.o interpreter.o token.o ast.o

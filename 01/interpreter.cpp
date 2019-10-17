@@ -2,7 +2,7 @@
 
 Interpreter::Interpreter(Parser parser) : parser(parser){};
 
-int Interpreter::visit(AST_node *node) {
+int Interpreter::visit(std::shared_ptr<AST_node> node) {
   if (!node) {
     std::cout << "Syntax error\n";
     exit(1);
@@ -31,12 +31,12 @@ int Interpreter::visit(AST_node *node) {
 }
 
 int Interpreter::interpret() {
-  AST_node *root = parser.parse();
+  std::shared_ptr<AST_node> root = parser.parse();
   // print_AST(root);
   return visit(root);
 }
 
-void Interpreter::print_AST(AST_node *root) {
+void Interpreter::print_AST(std::shared_ptr<AST_node> root) {
   if (root == nullptr)
     return;
   print_AST(root->left);

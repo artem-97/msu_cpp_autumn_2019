@@ -1,10 +1,12 @@
 #pragma once
 
 #include "token.h"
+#include <memory>
+
 struct AST_node {
-  using link = AST_node *;
-  link left = nullptr;
-  link right = nullptr;
+  using link = std::shared_ptr<AST_node>;
+  link left;
+  link right;
   Token token;
   bool isUnary = false; // does node contain unary plus/minus
 
