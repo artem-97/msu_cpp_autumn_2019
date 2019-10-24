@@ -1,6 +1,7 @@
 #include "parser.h"
 
-Parser::Parser(Lexer l) : lexer(l), current_token(lexer.get_next_token()){};
+Parser::Parser(const Lexer &l)
+    : lexer(l), current_token(lexer.get_next_token()){};
 
 void Parser::err() { std::cout << "Could not parse\n"; }
 

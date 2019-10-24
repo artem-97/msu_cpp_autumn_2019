@@ -8,7 +8,7 @@
 #include "token.h"
 class Parser {
 public:
-  Parser(Lexer);
+  explicit Parser(const Lexer &);
   Parser &operator=(const Parser &other) = delete;
 
   void err();

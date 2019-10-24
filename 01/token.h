@@ -23,6 +23,6 @@ struct Token {
   std::optional<int> value = std::nullopt;
 
   Token(Type, std::optional<int>);
-  Token(Type);
+  explicit Token(Type);
   friend std::ostream &operator<<(std::ostream &stream, const Token &token);
 };

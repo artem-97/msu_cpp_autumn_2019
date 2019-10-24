@@ -9,7 +9,7 @@
 
 class Interpreter {
 public:
-  Interpreter(Parser);
+  explicit Interpreter(const Parser &);
   int visit(std::shared_ptr<AST_node>);
   int interpret();
   void print_AST(std::shared_ptr<AST_node>);

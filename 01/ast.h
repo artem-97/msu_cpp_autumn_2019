@@ -10,8 +10,8 @@ struct AST_node {
   Token token;
   bool isUnary = false; // does node contain unary plus/minus
 
-  AST_node(link, link, Token, bool);
+  AST_node(link, link, const Token &, bool);
 
-  AST_node(Token);
-  AST_node(Token, bool);
+  explicit AST_node(const Token &);
+  AST_node(const Token &, bool);
 };

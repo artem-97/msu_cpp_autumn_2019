@@ -1,6 +1,6 @@
 #include "interpreter.h"
 
-Interpreter::Interpreter(Parser parser) : parser(parser){};
+Interpreter::Interpreter(const Parser &parser) : parser(parser){};
 
 int Interpreter::visit(std::shared_ptr<AST_node> node) {
   if (!node) {
