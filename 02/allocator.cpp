@@ -5,7 +5,7 @@ template class LinearAllocator<char>;
 template <class T>
 LinearAllocator<T>::LinearAllocator(size_t maxSize)
     : maxSize_(maxSize), ptr_(0) {
-  buffer_ = (T *)malloc(maxSize_);
+  buffer_ = static_cast<T *>(malloc(maxSize_));
 };
 
 template <class T> T *LinearAllocator<T>::alloc(size_t size) {
