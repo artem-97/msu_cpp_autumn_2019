@@ -11,8 +11,8 @@ main.o: main.cpp
 matrix.o: matrix.cpp
 	$(CC) $(CFLAGS) -c matrix.cpp
 
-#test.o: test.cpp
-#	$(CC) $(CFLAGS) -c test.cpp
+test:
+	./matrix
 
 run:
 	./matrix

@@ -12,9 +12,10 @@ public:
   Matrix &operator*=(int);
 
   const size_t getRows() const;
-  const size_t getCols() const;
+  const size_t getColumns() const;
 
   friend bool operator==(const Matrix &left, const Matrix &right);
+  friend bool operator!=(const Matrix &left, const Matrix &right);
   friend std::ostream &operator<<(std::ostream &out, const Matrix &m);
 
 private:

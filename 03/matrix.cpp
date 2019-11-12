@@ -6,7 +6,7 @@ Matrix::Matrix(size_t rows, size_t cols)
     : rows_(rows), cols_(cols), M(rows * cols, 0) {}
 
 const size_t Matrix::getRows() const { return rows_; }
-const size_t Matrix::getCols() const { return cols_; }
+const size_t Matrix::getColumns() const { return cols_; }
 
 Matrix &Matrix::operator=(const Matrix &m) {
   if (this == &m) {
@@ -36,6 +36,9 @@ bool operator==(const Matrix &left, const Matrix &right) {
   return true;
 }
 
+bool operator!=(const Matrix &left, const Matrix &right) {
+  return !(left == right);
+}
 std::ostream &operator<<(std::ostream &out, const Matrix &m) {
   for (size_t i = 0; i < m.rows_ * m.cols_; i++) {
     if ((i + 1) % m.cols_ == 0) {
