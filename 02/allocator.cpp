@@ -13,8 +13,8 @@ template <class T> T *LinearAllocator<T>::alloc(size_t size) {
     std::cout << "Bad alloc\n";
     return nullptr;
   } else {
-    ptr_ += size * sizeof(T);
-    return (buffer_ + ptr_ + size * sizeof(T));
+    ptr_ += size * sizeof(T); // current size of allocated memory
+    return buffer_ + (ptr_ - size * sizeof(T));
   }
 };
 
