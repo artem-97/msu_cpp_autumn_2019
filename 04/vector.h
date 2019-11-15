@@ -16,8 +16,11 @@ public:
   int size() const;
   void push_back(int);
 
-  int *begin() const;
-  int *end() const;
+  const int *begin() const;
+  const int *end() const;
+
+  int *begin();
+  int *end();
 
   void reverse();
 

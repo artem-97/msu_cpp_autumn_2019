@@ -63,16 +63,25 @@ void Vector::push_back(int e) {
   }
 }
 
-int *Vector::begin() const {
+const int *Vector::begin() const {
   // assert(size_ != 0);
   return val_;
 }
 
-int *Vector::end() const {
+const int *Vector::end() const {
   // assert(size_ != 0);
   return val_ + size_;
 }
 
+int *Vector::begin() {
+  // assert(size_ != 0);
+  return val_;
+}
+
+int *Vector::end() {
+  // assert(size_ != 0);
+  return val_ + size_;
+}
 void Vector::reverse() {
   assert(size_ != 0);
   int *begin = this->begin();
@@ -104,7 +113,7 @@ int &Vector::operator[](int i) {
 }
 
 std::ostream &operator<<(std::ostream &out, const Vector &v) {
-  for (int *it = v.begin(); it != v.end(); ++it) {
+  for (auto *it = v.begin(); it != v.end(); ++it) {
     std::cout << *it << ' ';
   }
   return out;
