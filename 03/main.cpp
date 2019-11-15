@@ -2,6 +2,7 @@
 #include <cassert>
 
 int main() {
+
   Matrix n(12, 2);
   auto y = n[2];
   n[3][1] = 100;
@@ -18,7 +19,6 @@ int main() {
   int x = m[4][1];
 
   m *= 3; // умножение на число
-
   Matrix m1(rows, cols);
   Matrix n1(rows, cols);
 
@@ -27,6 +27,9 @@ int main() {
 
   n1[2][3] = 5;
   n1[4][2] = 12;
+  std::cout << m1;
+  bool e = (m1[2] == n1[2]);
+
   if (m1 == n1) {
     std::cout << "eq:\n"
               << "m1:\n"

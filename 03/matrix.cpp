@@ -1,13 +1,12 @@
 #include "matrix.h"
 
-//#include <vector>
+#include <vector>
 
+// Constructors
 Matrix::Matrix(size_t rows, size_t cols)
     : rows_(rows), cols_(cols), M(rows * cols, 0) {}
 
-const size_t Matrix::getRows() const { return rows_; }
-const size_t Matrix::getColumns() const { return cols_; }
-
+// Operators
 Matrix &Matrix::operator=(const Matrix &m) {
   if (this == &m) {
     return *this;
@@ -26,19 +25,42 @@ Matrix &Matrix::operator*=(int c) {
   return *this;
 }
 
-bool operator==(const Matrix &left, const Matrix &right) {
-  if (left.rows_ != right.rows_ || left.cols_ != right.cols_)
+Matrix::Row Matrix::operator[](size_t i) const {
+  if (i >= this->rows_)
+    throw std::out_of_range("idx error");
+
+  auto begin = (const_cast<Matrix *>(this)->M).begin() + this->cols_ * i;
+  auto end = begin + this->cols_;
+
+  return Matrix::Row(begin, end);
+}
+
+Matrix::Row Matrix::operator[](size_t i) {
+  if (i >= this->rows_)
+    throw std::out_of_range("idx error");
+
+  auto begin = (this->M).begin() + this->cols_ * i;
+  auto end = begin + this->cols_;
+
+  return Matrix::Row(begin, end);
+}
+
+// Compare
+bool Matrix::operator==(const Matrix &other) const {
+  if (rows_ != other.rows_)
     return false;
-  for (size_t i = 0; i < left.rows_ * left.cols_; ++i) {
-    if (left.M[i] != right.M[i])
+  const Matrix &m = *this;
+  for (size_t i = 0; i < rows_; ++i) {
+    std::cout << m[i] << '\n';
+    if ((*this)[i] != other[i])
       return false;
   }
   return true;
 }
 
-bool operator!=(const Matrix &left, const Matrix &right) {
-  return !(left == right);
-}
+// Output
+bool Matrix::operator!=(const Matrix &other) const { return !(*this == other); }
+
 std::ostream &operator<<(std::ostream &out, const Matrix &m) {
   for (size_t i = 0; i < m.rows_ * m.cols_; i++) {
     if ((i + 1) % m.cols_ == 0) {
@@ -50,16 +72,31 @@ std::ostream &operator<<(std::ostream &out, const Matrix &m) {
   return out;
 }
 
-Matrix::Row Matrix::operator[](size_t i) {
-  if (this->rows_ < i)
-    throw std::out_of_range("idx error");
+// Utility
+const size_t Matrix::getRows() const { return rows_; }
+const size_t Matrix::getColumns() const { return cols_; }
 
-  // std::vector<int> M(this->M);
-  auto begin = (this->M).begin() + this->cols_ * i;
-  auto end = begin + this->cols_;
-  return Matrix::Row(begin, end);
+// Row (nested class)
+//
+// Row Constructors
+Matrix::Row::Row(std::vector<int>::iterator begin,
+                 std::vector<int>::iterator end)
+    : begin(begin), end(end){};
+
+// Row Operators
+int &Matrix::Row::operator[](size_t j) {
+  if (this->end - this->begin < j)
+    throw std::out_of_range("idx error");
+  return *(this->begin + j);
 }
 
+int &Matrix::Row::operator[](size_t j) const {
+  if (this->end - this->begin < j)
+    throw std::out_of_range("idx error");
+  return *(this->begin + j);
+}
+
+// Row Output
 std::ostream &operator<<(std::ostream &out, const Matrix::Row &r) {
   for (auto it = r.begin; it != r.end; ++it)
     std::cout << *it << ' ';
@@ -67,8 +104,12 @@ std::ostream &operator<<(std::ostream &out, const Matrix::Row &r) {
   return out;
 }
 
-int &Matrix::Row::operator[](size_t j) {
-  if (this->end - this->begin < j)
-    throw std::out_of_range("idx error");
-  return *(this->begin + j);
+// Row Compare
+bool Matrix::Row::operator==(const Matrix::Row &other) const {
+  return std::vector<int>(begin, end) ==
+         std::vector<int>(other.begin, other.end);
+}
+
+bool Matrix::Row::operator!=(const Matrix::Row &other) const {
+  return !(*this == other);
 }

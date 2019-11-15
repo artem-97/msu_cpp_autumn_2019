@@ -6,17 +6,23 @@
 
 class Matrix {
 public:
+  // Constructor
   Matrix(size_t, size_t);
-  Matrix &operator=(const Matrix &);
 
+  // Operators
+  Matrix &operator=(const Matrix &);
   Matrix &operator*=(int);
 
+  // Compare
+  bool operator==(const Matrix &) const;
+  bool operator!=(const Matrix &) const;
+
+  // Output
+  friend std::ostream &operator<<(std::ostream &out, const Matrix &m);
+
+  // Utility
   const size_t getRows() const;
   const size_t getColumns() const;
-
-  friend bool operator==(const Matrix &left, const Matrix &right);
-  friend bool operator!=(const Matrix &left, const Matrix &right);
-  friend std::ostream &operator<<(std::ostream &out, const Matrix &m);
 
 private:
   size_t rows_ = 0;
@@ -26,10 +32,18 @@ private:
 public:
   class Row {
   public:
-    Row(std::vector<int>::iterator begin, std::vector<int>::iterator end)
-        : begin(begin), end(end){};
-    int &operator[](size_t);
+    Row(std::vector<int>::iterator, std::vector<int>::iterator);
+    Row(std::vector<int>::const_iterator, std::vector<int>::const_iterator);
 
+    // Operators
+    int &operator[](size_t);
+    int &operator[](size_t) const;
+
+    // Compare
+    bool operator==(const Row &) const;
+    bool operator!=(const Row &) const;
+
+    // Output
     friend std::ostream &operator<<(std::ostream &out, const Row &m);
 
   private:
@@ -38,4 +52,5 @@ public:
   };
 
   Row operator[](size_t);
+  Row operator[](size_t) const;
 };
