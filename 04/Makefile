@@ -1,34 +1,25 @@
 CC=g++
 CFLAGS=-std=c++17 -O2
-all: allocator
+all:bigint
 
-allocator: main.o allocator.o
-	$(CC) -o allocator main.o allocator.o
+bigint: bigint.o vector.o main.o
+	$(CC) -o bigint bigint.o vector.o main.o
 
-main.o: main.cpp
+bigint.o: bigint.cpp
+	$(CC) $(CFLAGS) -c bigint.cpp
+
+vector: vector.o
+	$(CC) -o vector vector.o
+
+vector.o: vector.cpp
+	$(CC) $(CFLAGS) -c vector.cpp
+
+main.o:	main.cpp
 	$(CC) $(CFLAGS) -c main.cpp
 
-allocator.o: allocator.cpp
-	$(CC) $(CFLAGS) -c allocator.cpp
-
-test.o: test.cpp
-	$(CC) $(CFLAGS) -c test.cpp
-
-make_test: test.o
-	$(CC) -o test test.o
-
+test:
+	./bigint
 run:
-	./allocator
-
-test: make_test
-	./test
-
-
-make_bench: bench.cpp
-	$(CC) bench.cpp -std=c++17 -isystem benchmark/include -Lbenchmark/build/src -lbenchmark -lpthread -o bench
-
-bench: make_bench
-	./bench
-
+	./bigint
 clean:
-	rm -rf allocator bench test *.o
+	rm -rf vector bigint test *.o
