@@ -1,5 +1,6 @@
 #include "matrix.h"
 
+#include <algorithm>
 #include <vector>
 
 // Constructors
@@ -106,8 +107,7 @@ std::ostream &operator<<(std::ostream &out, const Matrix::Row &r) {
 
 // Row Compare
 bool Matrix::Row::operator==(const Matrix::Row &other) const {
-  return std::vector<int>(begin, end) ==
-         std::vector<int>(other.begin, other.end);
+  return std::equal(begin, end, other.begin);
 }
 
 bool Matrix::Row::operator!=(const Matrix::Row &other) const {
