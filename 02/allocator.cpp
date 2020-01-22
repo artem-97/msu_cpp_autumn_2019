@@ -1,7 +1,5 @@
 #include "allocator.h"
 
-template class LinearAllocator<char>;
-
 template <class T>
 LinearAllocator<T>::LinearAllocator(size_t maxSize)
     : maxSize_(maxSize), ptr_(0) {
@@ -9,8 +7,8 @@ LinearAllocator<T>::LinearAllocator(size_t maxSize)
 };
 
 template <class T> T *LinearAllocator<T>::alloc(size_t size) {
-  if (ptr_ + size > maxSize_) {
-    std::cout << "Bad alloc\n";
+  if (ptr_ + size - 1 > maxSize_) {
+    // std::cout << "Bad alloc\n";
     return nullptr;
   } else {
     ptr_ += size * sizeof(T); // current size of allocated memory
@@ -19,7 +17,6 @@ template <class T> T *LinearAllocator<T>::alloc(size_t size) {
 };
 
 template <class T> void LinearAllocator<T>::reset() { ptr_ = 0; }
-
 template <class T> LinearAllocator<T>::~LinearAllocator() {
   if (buffer_ != nullptr) {
     delete buffer_;

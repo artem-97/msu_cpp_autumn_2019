@@ -36,7 +36,9 @@ std::string format_impl(const std::string &fmt, std::vector<std::string> &strs,
                         Arg &&arg, Args &&... args) {
   std::stringstream ss;
   ss << arg;
-  strs.push_back(std::forward<std::string>(ss.str()));
+  // strs.push_back(std::forward<std::string>(ss.str()));
+  strs.push_back(ss.str());
+
   return format_impl(fmt, strs, std::forward<Args>(args)...);
 }
 

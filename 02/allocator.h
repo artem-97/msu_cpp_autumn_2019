@@ -15,3 +15,5 @@ private:
   T *buffer_ = nullptr;
   size_t ptr_ = 0;
 };
+
+template class LinearAllocator<char>;

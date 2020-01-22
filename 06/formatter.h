@@ -7,8 +7,8 @@
 
 #include <vector>
 
-static constexpr char OBRACKET{'{'};
-static constexpr char CBRACKET{'}'};
+constexpr char OBRACKET{'{'};
+constexpr char CBRACKET{'}'};
 
 std::string format_impl(const std::string &, const std::vector<std::string> &);
 
